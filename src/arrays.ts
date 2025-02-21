@@ -47,7 +47,10 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    let copy = [...messages];
+    let statements: string[] = copy.filter((message: string): boolean => !(message.endsWith("?")));
+    let shouts: string[] = statements.map((message: string): string => message.endsWith("!") ? message.toUpperCase() : message);
+    return shouts;
 };
 
 /**
@@ -55,9 +58,10 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    let letter_counts = words.map((word: string): number => word.length);
+    let short_counts_only = letter_counts.filter((num: number): boolean => num < 4);
+    return short_counts_only.length;
 }
-
 /**
  * Consumes an array of colors (e.g., 'red', 'purple') and returns true if ALL
  * the colors are either 'red', 'blue', or 'green'. If an empty list is given,
