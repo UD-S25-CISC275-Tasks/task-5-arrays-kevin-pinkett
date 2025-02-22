@@ -97,9 +97,31 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    const neg_index: number  | undefined = values.findIndex((value: number): boolean => value < 0);
-    const total: number = values.reduce((total: number, num: number): number => total+=num, 0);
+    const neg_index: number = values.findIndex(
+        (value: number): boolean => value < 0,
+    );
+    const all_pos: number[] = values.slice(0, neg_index);
+    let total: number;
+    console.log(neg_index);
+    console.log(
+        (total = values.reduce(
+            (total: number, num: number): number => (total += num),
+            0,
+        )),
+    );
+    neg_index === -1 ?
+        (total = values.reduce(
+            (total: number, num: number): number => (total += num),
+            0,
+        ))
+    :   (total = all_pos.reduce(
+            (total: number, num: number): number => (total += num),
+            0,
+        ));
     let ret = [...values];
-    neg_index !== -1 ? ret.splice(neg_index + 1,0,total) : ret = [...ret,total]
+    console.log(total);
+    neg_index !== -1 ?
+        ret.splice(neg_index + 1, 0, total)
+    :   (ret = [...ret, total]);
     return ret;
 }
