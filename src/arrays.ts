@@ -68,7 +68,9 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    const init_length: number = colors.length
+    let rgb_only: string[] = colors.filter((color: string): boolean => color === "red" || color === "blue" || color === "green");
+    return init_length === rgb_only.length;
 }
 
 /**
@@ -79,7 +81,10 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    const sum = addends.reduce((total: number, num: number): number => total += num, 0);
+    let math_string = `${sum}=`;
+    addends.length === 0 ? math_string += "0" : math_string += addends.join("+")
+    return math_string;
 }
 
 /**
@@ -92,5 +97,9 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    const neg_index: number  | undefined = values.findIndex((value: number): boolean => value < 0);
+    const total: number = values.reduce((total: number, num: number): number => total+=num, 0);
+    let ret = [...values];
+    neg_index !== -1 ? ret.splice(neg_index + 1,0,total) : ret = [...ret,total]
+    return ret;
 }
